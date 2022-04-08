@@ -1,5 +1,6 @@
 export { default as GetAllUsers } from './users/GetAllUsers'
 export { default as AddUser } from './users/AddUser'
+export { default as AddToCart } from './users/AddToCart'
 export { default as DeleteUser } from './users/DeleteUser'
 export { default as GetAllProducts } from './products/GetAllProducts'
 export { default as AddProduct } from './products/AddProduct'
