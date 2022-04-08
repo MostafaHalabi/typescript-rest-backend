@@ -5,7 +5,7 @@ import * as bodyParser from 'body-parser'
 import dotenv from 'dotenv'
 import { connectDb } from './lib'
 import 'colors'
-import { UsersRouter } from './routes'
+import { ProductsRouter, UsersRouter } from './routes'
 ;(async () => {
   dotenv.config()
   connectDb()
@@ -14,6 +14,7 @@ import { UsersRouter } from './routes'
   app.use(cors())
   app.use(bodyParser.json())
   app.use('/users', UsersRouter)
+  app.use('/products', ProductsRouter)
   app.listen(process.env.PORT, () => {
     console.log(`[i] Server is running on port ${process.env.PORT}`.yellow)
   })
