@@ -1,24 +1,38 @@
 import { Request, Response } from 'express'
-import { Users } from '../../models'
+import { Users, Products } from '../../models'
 
 export default async (req: Request, res: Response) => {
   try {
     const { productId, quantity, userId } = req.body
 
-    //add item to user's cart
+    const user = await Users.findById(userId)
 
-    const newItem = await Users.findByIdAndUpdate(
-      userId,
-      {
-        $push: {
-          cart: {
-            product: productId,
-            quantity: quantity
-          }
-        }
-      },
-      { new: true }
-    ).populate('cart.product')
+    //check if user already has same product in cart
+    if (user) {
+      const productInCart = user.cart.find(
+        (product) => product?.product?.toString() === productId
+      )
+
+      if (productInCart) {
+        //update quantity
+        productInCart.quantity += parseInt(quantity)
+        await user.save()
+      } else {
+        //add product to user's cart
+        const newItem = await Users.findByIdAndUpdate(
+          userId,
+          {
+            $push: {
+              cart: {
+                product: productId,
+                quantity: quantity
+              }
+            }
+          },
+          { new: true }
+        ).populate('cart.product')
+      }
+    }
 
     return res.status(200).json({
       message: 'Product added to cart successfully',

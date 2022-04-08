@@ -2,6 +2,22 @@ import { Schema, model } from 'mongoose'
 import { IUser } from '../types'
 import * as bcrypt from 'bcrypt'
 
+const cartSchema = new Schema(
+  {
+    product: {
+      type: Schema.Types.ObjectId,
+      ref: 'Product'
+    },
+    quantity: {
+      type: Number,
+      required: true
+    }
+  },
+  {
+    _id: false
+  }
+)
+
 const userSchema = new Schema<IUser>(
   {
     fname: {
@@ -23,18 +39,7 @@ const userSchema = new Schema<IUser>(
       type: String,
       required: true
     },
-    cart: [
-      {
-        product: {
-          type: Schema.Types.ObjectId,
-          ref: 'Product'
-        },
-        quantity: {
-          type: Number,
-          required: true
-        }
-      }
-    ]
+    cart: [cartSchema]
   },
   {
     timestamps: true,
