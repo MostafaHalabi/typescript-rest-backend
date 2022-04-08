@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose'
 import { IUser } from '../types'
 import * as bcrypt from 'bcrypt'
+
 const userSchema = new Schema<IUser>(
   {
     fname: {
