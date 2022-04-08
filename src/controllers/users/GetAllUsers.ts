@@ -1,13 +1,12 @@
 import { Request, Response } from 'express'
-import users from '../../models/users'
+import { Users } from '../../models'
 
 export default async (req: Request, res: Response) => {
   try {
     // get all users
-    const allUsers = await users
-      .find({})
+    const allUsers = await Users.find({})
       .select('-password')
-      .populate('cart.product')
+      .populate('cart.product', '-quantity')
 
     return res.status(200).json({
       users: allUsers,
