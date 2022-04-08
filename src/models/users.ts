@@ -22,7 +22,15 @@ const userSchema = new Schema<IUser>(
     email: {
       type: String,
       required: true
-    }
+    },
+    cart: [
+      {
+        product: {
+          type: Schema.Types.ObjectId,
+          ref: 'Product'
+        }
+      }
+    ]
   },
   {
     timestamps: true,
