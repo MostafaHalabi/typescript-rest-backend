@@ -4,7 +4,10 @@ import users from '../../models/users'
 export default async (req: Request, res: Response) => {
   try {
     // get all users
-    const allUsers = await users.find({}).select('-password')
+    const allUsers = await users
+      .find({})
+      .select('-password')
+      .populate('cart.product')
 
     return res.status(200).json({
       users: allUsers,

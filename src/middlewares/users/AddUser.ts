@@ -85,7 +85,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
       console.log(err)
     }
     return res.status(500).json({
-      sttus: 'error',
+      status: 'error',
       message: 'Internal Server error',
       requestTime: new Date().toISOString()
     })
